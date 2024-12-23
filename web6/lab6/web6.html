@@ -1,0 +1,146 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма заявки на вакансию</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            margin-bottom: 16px;
+            padding: 8px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            label {
+                display: none;
+            }
+            input::placeholder, textarea::placeholder {
+                font-style: italic;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <form id="jobApplicationForm">
+        <label for="full-name">Полное имя</label>
+        <input type="text" id="full-name" name="Полное имя" placeholder="Введите ваше полное имя" required>
+
+        <label for="email">Электронная почта</label>
+        <input type="email" id="email" name="Электронная почта" placeholder="Введите ваш email" required>
+
+        <label for="phone">Номер телефона</label>
+        <input type="tel" id="phone" name="Номер телефона" placeholder="Введите ваш номер телефона" required>
+
+        <label for="salary">Желаемая зарплата</label>
+        <input type="number" id="salary" name="Желаемая зарплата" placeholder="Введите желаемую зарплату" required>
+
+        <label for="location">Тип работы</label>
+        <select id="location" name="Тип работы" required>
+            <option value="">Выберите тип работы</option>
+            <option value="remote">Удалённо</option>
+            <option value="on-site">На месте</option>
+        </select>
+
+        <label for="cover-letter">Сопроводительное письмо</label>
+        <textarea id="cover-letter" name="Сопроводительное письмо" rows="4" placeholder="Напишите сопроводительное письмо..."></textarea>
+
+        <label for="resume">Загрузить резюме</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+
+        <button type="button" onclick="submitForm()">Отправить заявку</button>
+    </form>
+    <div id="output" style="margin-top: 20px; font-weight: bold;"></div>
+</div>
+
+<script>
+    function submitForm() {
+        const form = document.getElementById('jobApplicationForm');
+        const outputDiv = document.getElementById('output');
+
+        const fullName = document.getElementById('full-name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const salary = document.getElementById('salary').value.trim();
+        const location = document.getElementById('location').value.trim();
+        const coverLetter = document.getElementById('cover-letter').value.trim();
+
+        let errors = [];
+
+        if (!/^[А-Яа-яЁёA-Za-z\s]+$/.test(fullName)) {
+            errors.push("Полное имя должно содержать только буквы и пробелы.");
+        }
+
+        if (!/^[\w.-]+@[a-zA-Z_]+?\.[a-zA-Z]{2,}$/.test(email)) {
+            errors.push("Введите корректный адрес электронной почты.");
+        }
+
+        if (!/^\+?\d{1,4}[\s.-]?\(?\d{1,3}\)?[\s.-]?\d{1,4}[\s.-]?\d{1,4}[\s.-]?\d{1,9}$/.test(phone)) {
+            errors.push("Введите корректный номер телефона.");
+        }
+
+        if (!/^\d+$/.test(salary) || parseInt(salary) <= 0) {
+            errors.push("Желаемая зарплата должна быть положительным числом.");
+        }
+
+        if (!location) {
+            errors.push("Выберите тип работы.");
+        }
+
+        if (errors.length > 0) {
+            outputDiv.innerHTML = `<p style="color: red;">${errors.join("<br>")}</p>`;
+            return;
+        }
+
+        let output = '<h2>Данные формы:</h2>';
+        output += `<p><strong>Полное имя:</strong> ${fullName}</p>`;
+        output += `<p><strong>Электронная почта:</strong> ${email}</p>`;
+        output += `<p><strong>Номер телефона:</strong> ${phone}</p>`;
+        output += `<p><strong>Желаемая зарплата:</strong> ${salary}</p>`;
+        output += `<p><strong>Тип работы:</strong> ${location}</p>`;
+        output += `<p><strong>Сопроводительное письмо:</strong> ${coverLetter || "Не заполнено"}</p>`;
+
+        outputDiv.innerHTML = output;
+
+        form.reset();
+    }
+</script>
+
+
+</body>
+</html>
