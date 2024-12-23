@@ -1,0 +1,95 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рассчёт срока превышения долга</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f3fe;
+            border: 1px solid #bee5eb;
+            border-radius: 4px;
+            color: #31708f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Рассчёт срока превышения долга</h2>
+        <form id="loan-form">
+            <label for="initial-debt">Сумма ссуды (M) в тысячах рублей:</label>
+            <input type="number" id="initial-debt" step="0.01" required>
+
+            <label for="threshold">Пороговая сумма долга (S) в тысячах рублей:</label>
+            <input type="number" id="threshold" step="0.01" required>
+
+            <button type="button" onclick="calculateYears()">Рассчитать</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        function calculateYears() {
+            const initialDebt = parseFloat(document.getElementById('initial-debt').value);
+            const threshold = parseFloat(document.getElementById('threshold').value);
+            const interestRate = 20; 
+
+            if (isNaN(initialDebt) || isNaN(threshold) || initialDebt <= 0 || threshold <= 0) {
+                alert('Пожалуйста, введите корректные значения.');
+                return;
+            }
+
+            let years = 0;
+            let currentDebt = initialDebt;
+
+            while (currentDebt <= threshold) {
+                currentDebt += currentDebt * (interestRate / 100);
+                years++;
+            }
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').textContent = `Через ${years} лет долг превысит ${threshold.toFixed(2)} тысяч рублей.`;
+        }
+    </script>
+</body>
+</html>

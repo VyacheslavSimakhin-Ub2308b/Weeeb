@@ -1,0 +1,115 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обработка массива</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            font-family: monospace;
+        }
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f3fe;
+            border: 1px solid #bee5eb;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Обработка массива</h2>
+
+        <textarea id="arrayInput" placeholder="Введите массив чисел, разделённых запятыми..."></textarea>
+
+        <button onclick="processArray()">Обработать</button>
+
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        function processArray() {
+            const input = document.getElementById('arrayInput').value;
+            const array = input.split(',').map(Number).filter(n => !isNaN(n));
+
+            if (array.length === 0) {
+                alert('Введите корректный массив чисел.');
+                return;
+            }
+
+            const sumFromLastNegativeSinus = calculateSumFromLastNegativeSinus(array);
+            const filteredArray = removeElementsWithPrimeDigits(array);
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <p><strong>Сумма от последнего элемента с отрицательным синусом до конца массива:</strong> ${sumFromLastNegativeSinus}</p>
+                <p><strong>Массив после удаления элементов:</strong> ${filteredArray.join(', ')}</p>
+            `;
+        }
+
+        function calculateSumFromLastNegativeSinus(array) {
+            let startIndex = -1;
+
+            for (let i = array.length - 1; i >= 0; i--) {
+                if (Math.sin(array[i]) < 0) {
+                    startIndex = i;
+                    break;
+                }
+            }
+
+            if (startIndex === -1) return 0;
+
+            let sum = 0;
+            for (let i = startIndex; i < array.length; i++) {
+                sum += array[i];
+            }
+
+            return sum;
+        }
+
+        function removeElementsWithPrimeDigits(array) {
+            function hasOnlyPrimeDigits(num) {
+                const primeDigits = new Set(['2', '3', '5', '7']);
+                const digits = Math.abs(Math.trunc(num)).toString();
+
+                for (const digit of digits) {
+                    if (!primeDigits.has(digit)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            return array.filter(num => !hasOnlyPrimeDigits(num));
+        }
+    </script>
+</body>
+</html>

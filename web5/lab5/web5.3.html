@@ -1,0 +1,52 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Извлечение названий папок</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Извлечение названий папок из пути</h1>
+    <p>Введите полный путь к файлу ниже:</p>
+    <input type="text" id="filePath" placeholder="Введите путь к файлу" size="50">
+    <button onclick="extractFolders()">Извлечь папки</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function extractFolders() {
+            const filePath = document.getElementById('filePath').value;
+
+            if (!filePath) {
+                document.getElementById('result').textContent = "Пожалуйста, введите правильный путь к файлу.";
+                return;
+            }
+
+            const folders = filePath.split(/\\|\//).filter(Boolean);
+
+            // Удаление последнего элемента, если это файл
+            if (folders.length > 0 && folders[folders.length - 1].includes('.')) {
+                folders.pop();
+            }
+
+            if (folders.length > 0) {
+                document.getElementById('result').textContent = "Папки: " + folders.join(', ');
+            } else {
+                document.getElementById('result').textContent = "В указанном пути папки не найдены.";
+            }
+        }
+    </script>
+</body>
+</html>
