@@ -1,0 +1,130 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календарь на месяц</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .weekend {
+            background-color: #ffcccc;
+        }
+        .holiday {
+            background-color: #ffdd99;
+        }
+    </style>
+</head>
+<body>
+    <h1>Календарь на месяц</h1>
+    <form id="calendarForm">
+        <label for="year">Год:</label>
+        <input type="number" id="year" name="year" min="1900" max="2100" value="">
+        <label for="month">Месяц:</label>
+        <input type="number" id="month" name="month" min="1" max="12" value="">
+        <button type="button" onclick="updateCalendar()">Показать</button>
+    </form>
+    <div id="calendar"></div>
+
+    <script>
+        function generateCalendar(year = new Date().getFullYear(), month = new Date().getMonth()) {
+            const calendarDiv = document.getElementById('calendar');
+            calendarDiv.innerHTML = '';
+
+            const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+            const holidays = {
+                '1-1': "Новый год",
+                '2-23': 'День защитника Отечества',
+                '3-8': 'Международный женский день',
+                '5-1': 'Праздник Весны и Труда',
+                '5-9': 'День Победы',
+                '6-12': 'День России',
+                '11-4': 'День народного единства'
+            };
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const adjustedFirstDay = (firstDay === 0) ? 6 : firstDay - 1; 
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+
+            daysOfWeek.forEach(day => {
+                const th = document.createElement('th');
+                th.textContent = day;
+                headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+
+            let currentRow = document.createElement('tr');
+            for (let i = 0; i < adjustedFirstDay; i++) {
+                const emptyCell = document.createElement('td');
+                currentRow.appendChild(emptyCell);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('td');
+                cell.textContent = day;
+
+                const dateKey = `${month + 1}-${day}`;
+
+                const dayOfWeek = (adjustedFirstDay + day - 1) % 7;
+                if (dayOfWeek === 5 || dayOfWeek === 6) {
+                    cell.classList.add('weekend');
+                }
+
+                if (holidays[dateKey]) {
+                    cell.classList.add('holiday');
+                    cell.title = holidays[dateKey];
+                }
+
+                currentRow.appendChild(cell);
+
+                if ((adjustedFirstDay + day) % 7 === 0) {
+                    table.appendChild(currentRow);
+                    currentRow = document.createElement('tr');
+                }
+            }
+
+            while (currentRow.children.length < 7) {
+                const emptyCell = document.createElement('td');
+                currentRow.appendChild(emptyCell);
+            }
+            table.appendChild(currentRow);
+
+            calendarDiv.appendChild(table);
+        }
+
+        function updateCalendar() {
+            const yearInput = document.getElementById('year').value;
+            const monthInput = document.getElementById('month').value;
+
+            const year = yearInput ? parseInt(yearInput, 10) : new Date().getFullYear();
+            const month = monthInput ? parseInt(monthInput, 10) - 1 : new Date().getMonth();
+
+            if (monthInput && (monthInput < 1 || monthInput > 12)) {
+                alert('Пожалуйста, введите корректный месяц (от 1 до 12).');
+                return;
+            }
+
+            generateCalendar(year, month);
+        }
+
+        generateCalendar();
+    </script>
+</body>
+</html>

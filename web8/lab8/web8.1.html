@@ -1,0 +1,59 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица умножения</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Таблица умножения</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>&times;</th>
+                <th>0</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+            </tr>
+        </thead>
+        <tbody>
+            <script>
+                for (let i = 0; i <= 10; i++) {
+                    document.write('<tr>');
+                    document.write(`<th>${i}</th>`);
+                    for (let j = 0; j <= 10; j++) {
+                        document.write(`<td>${i * j}</td>`);
+                    }
+                    document.write('</tr>');
+                }
+            </script>
+        </tbody>
+    </table>
+</body>
+</html>
