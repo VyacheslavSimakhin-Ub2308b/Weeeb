@@ -1,0 +1,96 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма заявки на вакансию</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            margin-bottom: 16px;
+            padding: 8px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            label {
+                display: none;
+            }
+            input::placeholder, textarea::placeholder {
+                font-style: italic;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <form id="jobApplicationForm" onsubmit="handleSubmit(event)">
+        <label for="full-name">Полное имя</label>
+        <input type="text" id="full-name" name="Полное имя" placeholder="Введите ваше имя">
+
+        <label for="email">Электронная почта</label>
+        <input type="email" id="email" name="Электронная почта" placeholder="Введите ваш email">
+
+        <label for="phone">Номер телефона</label>
+        <input type="tel" id="phone" name="Номер телефона" placeholder="Введите ваш телефон">
+
+        <label for="salary">Желаемая зарплата</label>
+        <input type="number" id="salary" name="Желаемая зарплата" placeholder="Введите сумму">
+
+        <label for="location">Тип работы</label>
+        <select id="location" name="Тип работы">
+            <option value="">Выберите тип работы</option>
+            <option value="remote">Удалённо</option>
+            <option value="on-site">На месте</option>
+        </select>
+
+        <label for="cover-letter">Сопроводительное письмо</label>
+        <textarea id="cover-letter" name="Сопроводительное письмо" rows="4" placeholder="Сопроводительное письмо..."></textarea>
+
+        <button type="submit">Отправить</button>
+    </form>
+</div>
+
+<script>
+    function handleSubmit(event) {
+        event.preventDefault(); 
+        const form = document.getElementById('jobApplicationForm');
+        alert("Заявка успешно отправлена!");
+        form.reset(); 
+    }
+</script>
+
+</body>
+</html>
