@@ -1,0 +1,80 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Космический корабль</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #000;
+        }
+
+        .spaceship {
+            position: relative;
+            width: 60px;
+            height: 100px;
+        }
+
+        .body {
+            width: 40px;
+            height: 80px;
+            background: gray;
+            margin: 0 auto;
+            border-radius: 20px;
+        }
+
+        .nose {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 30px solid gray;
+        }
+
+        .wing {
+            position: absolute;
+            top: 40px;
+            width: 20px;
+            height: 40px;
+            background: gray;
+        }
+
+        .wing-left {
+            left: -20px;
+            transform: rotate(-30deg);
+        }
+
+        .wing-right {
+            right: -20px;
+            transform: rotate(30deg);
+        }
+
+        .engine-fire {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 20px;
+            background: orange;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="spaceship">
+        <div class="nose"></div>
+        <div class="body"></div>
+        <div class="wing wing-left"></div>
+        <div class="wing wing-right"></div>
+        <div class="engine-fire"></div>
+    </div>
+</body>
+</html>
