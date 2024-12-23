@@ -1,0 +1,177 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('ofont.ru_Roboto.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 24px;
+    font-family: 'Roboto', sans-serif;
+    color: #444;
+}
+
+h1.highlight {
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+p, ul, ol {
+    font-size: 14px;
+}
+
+/* Списки с нестандартными маркерами */
+ul.custom-bullet {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+ul.custom-bullet li {
+    margin-left: 20px;
+    position: relative;
+}
+
+ul.custom-bullet li::before {
+    content: url('icon.svg');
+    position: absolute;
+    left: -20px;
+    top: 0;
+}
+
+a.download {
+    font-weight: bold;
+    text-decoration: none;
+    color: #006400;
+}
+
+a.download:hover {
+    text-decoration: underline;
+    color: #228B22;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+p.highlight {
+    background-color: #ffffe0;
+    padding: 10px;
+    border-left: 5px solid #ff0;
+}
+
+nav ol {
+    list-style-type: decimal;
+    padding-left: 20px;
+}
+
+nav ol li a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+nav ol li a:hover {
+    text-decoration: underline;
+}
+
+section {
+    margin: 20px;
+    padding: 40px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+img[style*="float: left"] {
+    float: left;
+    margin-right: 10px;
+}
+
+img[style*="float: right"] {
+    float: right;
+    margin-left: 10px;
+}
+
+img[style*="display: block"] {
+    display: block;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fdfdfd;
+}
+
+table caption {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+
+pre {
+    background-color: #282c34;
+    color: #abb2bf;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+pre .code-example {
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.4;
+}
+
+pre .code-example .keyword {
+    color: #c678dd;
+}
+
+pre .code-example .string {
+    color: #98c379;
+}
+
+pre .code-example .function {
+    color: #61afef;
+}
